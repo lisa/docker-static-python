@@ -1,0 +1,15 @@
+--- Modules/makesetup.dist	2018-05-23 01:58:50.034767531 +0000
++++ Modules/makesetup	2018-05-23 01:59:36.207811984 +0000
+@@ -128,7 +128,11 @@
+ 
+ 		# Output DEFS in reverse order so first definition overrides
+ 		case $line in
+-		*=*)	DEFS="$line$NL$DEFS"; continue;;
++		*=*)    if [ $(sed -e 's$::=\|:=\|+=\|?=$=$' -e 's$\s*=.*$$' <<< $line | wc -w) == 1 ]
++              		then
++                      		DEFS="$line$NL$DEFS"; continue;
++              		fi
++              		;;
+ 		'include '*)	DEFS="$line$NL$DEFS"; continue;;
+ 		'*noobjects*')
+ 			case $noobjects in
