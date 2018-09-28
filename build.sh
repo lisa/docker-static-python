@@ -149,6 +149,7 @@ _lsprof rotatingtree.c _lsprof.c
 pyexpat expat/xmlparse.c expat/xmlrole.c expat/xmltok.c pyexpat.c -I$(srcdir)/Modules/expat -DHAVE_EXPAT_CONFIG_H -DUSE_PYEXPAT_CAPI -DHAVE_SYSCALL_GETRANDOM
 _psutil_linux psutil/_psutil_common.c psutil/_psutil_posix.c psutil/_psutil_linux.c -DPSUTIL_POSIX=1 -DPSUTIL_VERSION=__PSVER__ -DPSUTIL_LINUX=1
 _psutil_posix psutil/_psutil_common.c psutil/_psutil_posix.c                        -DPSUTIL_POSIX=1 -DPSUTIL_VERSION=__PSVER__ -DPSUTIL_LINUX=1
+crypt cryptmodule.c  -lcrypt
 EOF
 
     # Enable OpenSSL support
