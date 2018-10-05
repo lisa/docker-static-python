@@ -1,0 +1,29 @@
+branches:
+  only:
+  # Versioning for Python is a mess (see https://www.python.org/dev/peps/pep-0440/)
+  # so we'll just focus on the master branch and the major versions
+  # currently in the format major.minor.patch. If Python changes their format
+  # I'll update this.
+  - /^\d{1,}\.\d{1,}\.\d{1,}.*/
+  - master
+
+sudo: required
+language: c
+
+services:
+  - docker
+
+before_script:
+  - echo "Log into docker hub"
+  - echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+
+script:
+  - ./travis-build-scripts/build_image.sh
+  
+after_success:
+  # Don't publish for pull requests?
+  - if [[ -z $TRAVIS_PULL_REQUEST && $TRAVIS_EVENT_TYPE != "cron" ]]; then ./travis-build-scripts/publish_image.sh; fi
+
+env:
+  global:
+    secure: iB22I1J0nF0dxWU4bCgaz1bt22SC63aV5SivdV3BMnetyrb7ewUzPOYARNQxWkzUR8ci+1xhA7nruAV0aB0s/FfJUCQg3sEz4I1Z03uEdozken7Dp3+3rnn7r3bA4iPCh/M56bLeti3PAEEJxb8mrYbgFVyGIdVa5gFWfSIdhwPndxWvUuu8xUARHUOpJntx6ptx+E62FTg2ihy7bh1Fz+/p1dvDbZ3ZA8YbkTn01n2Hm43aWpJOg93jhm0WbQaY0Zsjdus6WDvVJOBAiJ2b7eEQXQMpa5d0B2kumBTPuRqV18j998bcGsEEkuUDEWpPDYzXagEcc5pqXGgVL2k7FStxfIDv+7iczBneUKFuFxQkuWHXcwbUIyGT/pwlfhItr+wBKBgUzgDt/ShmxUwmRbgqSQlpKSc5jov//3SCR5DvxmJUsybz2PNFMe7sSsv5b8B9paWTRdDVN8TcUHCPPQc9fagsTavlg9Lua/iZBgXwEojmLb3hkc2cFahQ7J1JwVKQIwh/IVpWWve23JJPRoYqJyjy279s1Gp5VbJpuBfJGBUH1chcLJnwVqMl1Rfg5YNebGVgkwamxdxiUt7to0JXZ93T+vA7vvUL0uSS1wmDTvhRIVCwUXLGNMyUTzExjIwPfkhj9Mh6H6pKr4EpLovCG8g0A4iFNXoEWuuoBlA=
