@@ -38,9 +38,9 @@ RUN \
     --enable-static && \
   make -j $(nproc --all)
 
-RUN \
 # Note that things look for readline in <readline/readline.h>, so we need
 # that directory to exist.
+RUN \
   echo "Building readline ${READLINE_VERSION}" && \
   cd /build && \
   curl -LO ftp://ftp.cwru.edu/pub/bash/readline-${READLINE_VERSION}.tar.gz && \
@@ -77,20 +77,18 @@ RUN \
     https://github.com/giampaolo/psutil/archive/release-${PSUTIL_VERSION}.zip && \
   unzip /build/psutil-${PSUTIL_VERSION}.zip && \
   mv psutil-release-${PSUTIL_VERSION} psutil-${PSUTIL_VERSION} && \
-  # Prune out the Python files from the C files and then monkeypatch the
-  # Python files
+  echo "Pruning out the Python files from the C files" 
   mkdir -vp psutil/c_files psutil/python_files && \
   cp -vr /build/psutil-${PSUTIL_VERSION}/psutil psutil/c_files/ && \
 	rm -rvf psutil/c_files/psutil/*.py* psutil/c_files/psutil/DEVNOTES psutil/c_files/psutil/tests && \
-  # Python files
   cp -rv /build/psutil-${PSUTIL_VERSION}/psutil psutil/python_files/ && \
   rm -rvf psutil/python_files/psutil/*.c psutil/python_files/psutil/*.h psutil/python_files/psutil/arch psutil/python_files/psutil/tests && \
-  # Patch now
   cd psutil && \
-  echo "init patch" && \
+  echo "Monkey patching psutil .py files to look for _pslinux C module anywhere, not just '.'"
+  echo "__init__.py patch" && \
   ls -lR && \
   patch --ignore-whitespace -p0 < /build/psutil_import__init__.patch && \
-  echo "pslinux patch" && \
+  echo "_pslinux.py patch" && \
   patch --ignore-whitespace -p0 < /build/psutil_import_pslinux.patch 
   # Ready to be copied for Lib
 
