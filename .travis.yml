@@ -7,9 +7,6 @@ branches:
   - /^\d{1,}\.\d{1,}\.\d{1,}.*/
   - master
 
-env:
-  - secure: al5xern1zi4TOS3U4vNdP+RI9tIfLexygNP5TYI/UuZH7gdSYt4k3zXsPZYjTS0GQkVnThQvWJitkB0D5DSY+C3FHyOTlsYj59KOZ/8K3UI3Zmi6a79os463c4CJYKSdUdTtPZx0efI96oj5umuP+qIy9iX/GyckuBhlQaLqCELrc/oTw8SRhUrfchQhZ91fsTXFtu5qXupBZuKadGFJx4prs3x53zqQ5En3D137TZzrHLa1mEMyAVDAq/Se6aujgah2SLKi9z3yJ/DH9bt869MLH8YFrdg6kIX/QXseEc5pqiz8PATdKs3Iupq0oVsM9coK0mCEtC4FTqklwCnuzWJDO2ZotT6MSn4Wfy1U7bT1HISmgJEWtR/F92Wl0gUz/97FSnwveCw+H0pBkZHCE68JZsBFMzDm3iM4YLlM4WaCBAqCILpcuHaa8H1J3Bc42r6ptLJfd2DF1xOQZxTft6ZGghhO0hZljJyYUL4fmbVRh/VEbPUo0MVT10mwIeGJe0UyK9o61IjGT7SKzhZC4zkmxsb+nxfM1m8lV1xhYMKuSvERT4ObynGo3LsaHIwvOGWEnruBl1FjpBeBoE/mKtMyVK0+UARL7MoF1rxL8y90PcOyv1HTV6zqmtA1uOKIlvv9JvU/db5q47iCd7fUUTm0u7mKgwOyphA6GxXzIJU=
-
 sudo: required
 language: c
 
